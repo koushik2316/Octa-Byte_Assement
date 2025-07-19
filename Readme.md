@@ -34,30 +34,12 @@ $ git clone https://github.com/koushik2316/Octa-Byte_Assement
 $ cd  Octa-Byte_Assement
 ```
 ### To Run Locally with Docker Compose 
+### 1️⃣ Start the App
 ```bash
 $ docker-compose up --build
-
-#Access the app at: http://localhost:5000
 ```
 
-### 💻 To Run Locally (Without Docker)
-  ## Create a Virtual Environment & Install Dependencies
+### 2️⃣ Access the App
 ``` bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-pip install -r requirements.txt
+  Access the app at: http://localhost:5000
 ```
-### Set Up PostgreSQL Database
-```bash
-# Make sure PostgreSQL is installed and running. Create a database and set environment variables:
-
-# Example for local setup
-export POSTGRES_USER=postgres
-export POSTGRES_PW=password
-export POSTGRES_URL=localhost:5432
-export POSTGRES_DB=todoapp
-```
-### Run the App
-```bash
-$ python app.py
