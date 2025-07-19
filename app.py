@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(200), nullable=False)
+    complete = db.Column(db.Boolean, default=False)
 
 with app.app_context():
     db.create_all()
@@ -39,6 +40,13 @@ def add():
 def delete(id):
     task_to_delete = Todo.query.get_or_404(id)
     db.session.delete(task_to_delete)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/update/<int:id>')
+def update(id):
+    task = Todo.query.get_or_404(id)
+    task.complete = not task.complete
     db.session.commit()
     return redirect(url_for('index'))
 

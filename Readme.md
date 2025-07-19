@@ -36,29 +36,9 @@ cd todo-app
 
 ### 2️⃣ Run with Docker Compose 
 
+```bash
 docker-compose up --build
+```bash
 
 Access the app at: http://localhost:5000
 
-
----
-
-🐳 Docker Setup (Manual)
-Build and Run Docker Container
-
-docker build -t todolist-flask .
-docker run -d -p 5000:5000 \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PW=password \
-  -e POSTGRES_URL=<RDS_OR_DB_HOST>:5432 \
-  -e POSTGRES_DB=todoapp \
-  todolist-flask
-
-⚙️ Environment Variables
-Variable	Default	Description
-POSTGRES_USER	postgres	DB username
-POSTGRES_PW	password	DB password
-POSTGRES_URL	db:5432	Host:port of PostgreSQL
-POSTGRES_DB	todoapp	Database name
-
-```bash
