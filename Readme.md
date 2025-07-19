@@ -36,7 +36,7 @@ $ cd  Octa-Byte_Assement
 ### 2️⃣ Run with Docker Compose 
 ```bash
 $ docker-compose up --build
-
-Access the app at: http://localhost:5000
+#Access the app at: http://localhost:5000
 
 ```
+
