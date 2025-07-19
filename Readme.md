@@ -29,17 +29,16 @@ This is a simple **Flask** web application for managing TODO tasks, backed by a 
 
 ### 1️⃣ Clone the Repo
 
-```bash
+
 git clone https://github.com/koushik23n/todo-app.git
 cd todo-app
 
 
-2️⃣ Run with Docker Compose 
+### 2️⃣ Run with Docker Compose 
 
- docker-compose up --build
+docker-compose up --build
 
-
- Access the app at: http://localhost:5000
+Access the app at: http://localhost:5000
 
 
 ---
@@ -61,3 +60,5 @@ POSTGRES_USER	postgres	DB username
 POSTGRES_PW	password	DB password
 POSTGRES_URL	db:5432	Host:port of PostgreSQL
 POSTGRES_DB	todoapp	Database name
+
+```bash
