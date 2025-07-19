@@ -28,17 +28,15 @@ This is a simple **Flask** web application for managing TODO tasks, backed by a 
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repo
-
-
-git clone https://github.com/koushik23n/todo-app.git
-cd todo-app
-
+# clone the repo into your local host
+$ git clone https://github.com/koushik2316/Octa-Byte_Assement
+$ cd  Octa-Byte_Assement
 
 ### 2️⃣ Run with Docker Compose 
 
 ```bash
 docker-compose up --build
-```bash
+
 
 Access the app at: http://localhost:5000
 
