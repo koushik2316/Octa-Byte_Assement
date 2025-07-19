@@ -1,5 +1,5 @@
 __pycache__/
 .terraform.lock.hcl
-.terraform/modules/
-.terraform/providers/
-.terraform/terraform.tfstate*
+terraform/.terraform/modules/
+terraform/.terraform/providers/
+terraform/.terraform/terraform.tfstate*
