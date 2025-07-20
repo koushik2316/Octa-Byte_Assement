@@ -71,9 +71,9 @@ $ docker run -d \
   -e POSTGRES_URL=postgres-db:5432 \
   -e POSTGRES_DB=todoapp \
   -p 5000:5000 \
-  koushikn23/todo-flask-app:latest
+  koushikn23/todo-flask-app:latest #dockehubusername/image:tag
 ```
-### 2️⃣ Access the App
+### Access the App
 ``` bash
   Access the app at: http://localhost:5000
 ```
