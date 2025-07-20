@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
+
 
 # Environment variables for PostgreSQL connection
 DB_USER = os.getenv('DB_USER', 'postgres')
