@@ -2,4 +2,4 @@ __pycache__/
 .terraform.lock.hcl
 terraform/.terraform/
 .env
-terraform.tfvars
+terraform/*.tfvars
