@@ -43,3 +43,37 @@ $ docker-compose up --build
 ``` bash
   Access the app at: http://localhost:5000
 ```
+
+### To Run Locally without Docker Compose 
+### 🔁 Create a Shared Network
+```bash
+$ docker network create todo-network
+```
+
+### 🐘  Run PostgreSQL Container
+
+``` bash
+$ docker run -d \
+  --name postgres-db \
+  --network todo-network \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=password \
+  -e POSTGRES_DB=todoapp \
+  postgres
+```
+### Run Your Flask App Container
+``` bash
+$ docker run -d \
+  --name flask-app \
+  --network todo-network \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PW=password \
+  -e POSTGRES_URL=postgres-db:5432 \
+  -e POSTGRES_DB=todoapp \
+  -p 5000:5000 \
+  koushikn23/todo-flask-app:latest
+```
+### 2️⃣ Access the App
+``` bash
+  Access the app at: http://localhost:5000
+```
