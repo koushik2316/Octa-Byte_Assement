@@ -77,3 +77,11 @@ $ docker run -d \
 ``` bash
   Access the app at: http://localhost:5000
 ```
+
+## Features
+- Add new tasks.
+- Mark task as finished/unfinished.
+- Delete a task.
+<br>
+
+![Image of the app](Screenshots/img.png)
