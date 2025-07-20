@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
         IMAGE_NAME: ${{ secrets.IMAGE_NAME }}/todo-flask-app
 
     steps:
