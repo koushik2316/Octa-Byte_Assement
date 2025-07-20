@@ -84,4 +84,4 @@ $ docker run -d \
 - Delete a task.
 <br>
 
-![Image of the app](Screenshots/img.png)
+![Image](Screenshots/img.png)
