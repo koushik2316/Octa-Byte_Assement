@@ -1,34 +1,26 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:13
-    container_name: todo-db
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: todoapp
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
   web:
     build: .
-    container_name: todo-web
-    depends_on:
-      - db
-    restart: always
     ports:
       - "5000:5000"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PW: password
-      POSTGRES_URL: db:5432
-      POSTGRES_DB: todoapp
-    volumes:
-      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - check-db
+    command: flask run --host=0.0.0.0 --port=5000
 
-volumes:
-  pgdata:
+  check-db:
+    image: postgres:13
+    entrypoint: >
+      bash -c "
+        until pg_isready -h $${DB_HOST} -p $${DB_PORT} -U $${DB_USER}; do
+          echo 'Waiting for RDS...'
+          sleep 5
+        done
+      "
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}

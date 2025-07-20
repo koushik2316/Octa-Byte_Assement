@@ -1,15 +1,15 @@
-output "vpc_id" {
-  description = "The ID of the VPC"
-  value       = module.vpc.vpc_id
-
+output "ec2_public_ip" {
+  value = aws_instance.app.public_ip
 }
 
-output "public_subnet_ids" {
-  description = "The IDs of the public subnets"
-  value       = module.vpc.public_subnet_ids
+output "ec2_public_dns" {
+  value = aws_instance.app.public_dns
 }
 
-output "private_subnet_ids" {
-  description = "The IDs of the private subnets"
-  value       = module.vpc.private_subnet_ids
+output "rds_endpoint" {
+  value = aws_db_instance.postgres.endpoint
+
+}
+output "alb_dns_name" {
+  value = aws_lb.app_alb.dns_name
 }
