@@ -4,16 +4,6 @@ This is a simple **Flask** web application for managing TODO tasks, backed by a 
 
 ---
 
-## 🚀 Features
-
-- Add and delete tasks
-- PostgreSQL for data persistence
-- Dockerized with `gunicorn` for production
-- `unittest` test coverage
-- Compatible with CI/CD pipelines (GitHub Actions)
-
----
-
 ## 🚀 Getting Started
 
 ### Clone the Repo
