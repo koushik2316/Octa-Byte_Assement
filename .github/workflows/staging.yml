@@ -1,7 +1,9 @@
 name: Deploy to Staging
 on:
-  push:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["Build & Push Docker Image"]
+    types:
+      - completed
 
 jobs:
   deploy-staging:
