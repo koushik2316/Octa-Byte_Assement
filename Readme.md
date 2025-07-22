@@ -14,17 +14,6 @@ This is a simple **Flask** web application for managing TODO tasks, backed by a 
 
 ---
 
-## 🧰 Tech Stack
-
-- Python 3.10 + Flask
-- PostgreSQL (local or RDS)
-- SQLAlchemy ORM
-- Docker / Docker Compose
-- Gunicorn (WSGI server)
-- GitHub Actions (CI/CD)
-- Unit Testing: `unittest`
----
-
 ## 🚀 Getting Started
 
 ### Clone the Repo
