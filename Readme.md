@@ -56,10 +56,10 @@ $ docker run -d \
 ``` bash
   Access the app at: http://localhost:5000
 ```
-
+---
 ### CI/CD Pipeline for Flask TODO App
 
-This document describes the GitHub Actions-based CI/CD pipeline built as part of **Part 2: Deployment Automation**. It includes test automation, Dockerization, vulnerability scanning, deployment to staging and production, and failure notifications.
+This document describes the GitHub Actions-based CI/CD pipeline built as part of **Deployment Automation**. It includes test automation, Dockerization, vulnerability scanning, deployment to staging and production, and failure notifications.
 
 ---
 
