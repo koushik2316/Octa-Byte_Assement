@@ -57,6 +57,36 @@ $ docker run -d \
   Access the app at: http://localhost:5000
 ```
 
+### CI/CD Pipeline for Flask TODO App
+
+This document describes the GitHub Actions-based CI/CD pipeline built as part of **Part 2: Deployment Automation**. It includes test automation, Dockerization, vulnerability scanning, deployment to staging and production, and failure notifications.
+
+---
+
+## 🔁 Pipeline Breakdown
+
+### ✅ 1. Test Workflow (on Pull Request)
+- Trigger: `on: pull_request`
+- Steps:
+  - Install dependencies
+  - Run unit tests using `pytest`
+- Purpose: Validate code correctness before merging
+
+### 🏗️ 2. Build & Deploy Workflow (on Push to main)
+- Trigger: `on: push` to `main`
+- Stages:
+  - **Build Docker Image**
+  - **Push Image to Docker Hub**
+  - **Trivy Vulnerability Scan** (Python dependencies + Docker image)
+  - **Deploy to Staging**: Auto-deployment
+  - **Manual Approval → Deploy to Production**
+
+### 📣 3. Failure Notifications
+- **Slack Notification** (via webhook) to `#ci-cd` channel
+- **Email Notification** (via Gmail App Password) on failures
+
+---
+
 ## Features
 - Add new tasks.
 - Mark task as finished/unfinished.
