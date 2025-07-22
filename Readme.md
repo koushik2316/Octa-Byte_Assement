@@ -57,7 +57,7 @@ $ docker run -d \
   Access the app at: http://localhost:5000
 ```
 ---
-### CI/CD Pipeline for Flask TODO App
+### 🚀 CI/CD Pipeline for Flask TODO App
 
 This document describes the GitHub Actions-based CI/CD pipeline built as part of **Deployment Automation**. It includes test automation, Dockerization, vulnerability scanning, deployment to staging and production, and failure notifications.
 
@@ -84,6 +84,16 @@ This document describes the GitHub Actions-based CI/CD pipeline built as part of
 ### 📣 3. Failure Notifications
 - **Slack Notification** (via webhook) to `#ci-cd` channel
 - **Email Notification** (via Gmail App Password) on failures
+
+## 🔐 Required GitHub Secrets
+
+| Secret Name         | Description                       |
+|---------------------|-----------------------------------|
+| `DOCKER_USERNAME`   | Docker Hub username               |
+| `DOCKER_PASSWORD`   | Docker Hub password or token      |
+| `EMAIL_USERNAME`    | Gmail address (sender)            |
+| `EMAIL_PASSWORD`    | Gmail App Password                |
+| `SLACK_WEBHOOK_URL` | Slack Incoming Webhook URL        |
 
 ---
 
