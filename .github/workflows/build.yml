@@ -41,3 +41,55 @@ jobs:
 
       - name: Output image tag
         run: echo "Image pushed as ${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.sha_short }}"
+
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy Vulnerability Scan (Files & Docker Image)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'docker.io/${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest'
+          format: 'table'
+          exit-code: '1' # fail the job if vulnerabilities are found
+          ignore-unfixed: true
+  
+  notify-on-failure:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs: [build-and-push, security-scan]
+    if: failure()
+
+    steps:
+      - name: Notify via Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: GitHub CI/CD
+          fields: repo,message,commit,author,action,eventName,ref,workflow,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify via Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "[CI Failure] Todo App Pipeline Failed"
+          body: |
+            One of the CI jobs (test, build, or scan) failed in the GitHub Actions workflow.
+            Repo: ${{ github.repository }}
+            Workflow: ${{ github.workflow }}
+            Commit: ${{ github.sha }}
+            View Logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          to: you@example.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+    
+    
