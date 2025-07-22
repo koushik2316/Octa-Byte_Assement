@@ -8,17 +8,19 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip and setuptools to safe versions
+# Upgrade pip and setuptools
 RUN pip install --no-cache-dir --upgrade pip==23.3 setuptools==78.1.1
 
-# Add non-root user
-RUN adduser --disabled-password --gecos "" appuser
-USER appuser
-
 COPY requirements.txt .
+
+# Install Python dependencies as root
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+
+# Add non-root user after all install steps
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
 
 EXPOSE 5000
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
