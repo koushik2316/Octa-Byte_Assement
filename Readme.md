@@ -124,7 +124,9 @@ Two meaningful dashboards are configured:
 ## Dashboard Screenshots
 
   ![Image](Screenshots/Dashboards.png)
+
   ![Image](Screenshots/EC2_System.png)
+  
   ![Image](Screenshots/PostgreSQL.png)
 
 
