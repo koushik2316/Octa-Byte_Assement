@@ -1,0 +1,35 @@
+name: Deploy to Staging
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+   deploy-staging:
+    name: Deploy to Staging Environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Decode SSH key
+        run: |
+         echo "${{ secrets.STAGING_SSH_KEY }}" | base64 --decode > staging_key.pem
+         chmod 600 staging_key.pem
+
+      - name: Deploy Docker container to Staging
+        run: |
+            ssh -o StrictHostKeyChecking=no -i staging_key.pem ${{ secrets.STAGING_SSH_USER }}@${{ secrets.STAGING_SERVER }} << 'EOF'
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
+            docker stop todo-flask-app || true
+            docker rm todo-flask-app || true
+            docker run -d --name todo-flask-app -p 80:5000 \
+              -e DB_HOST=your-db-host \
+              -e DB_NAME=todoapp \
+              -e DB_USER=postgres \
+              -e DB_PASSWORD=your-db-password \
+            ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
+              EOF
+  
+      - name: Clean up SSH key
+        run: rm -f staging_key.pem
