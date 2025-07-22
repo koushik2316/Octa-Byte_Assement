@@ -21,35 +21,35 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i staging_key.pem ${{ secrets.STAGING_SSH_USER }}@${{ secrets.STAGING_SERVER }} 
           << 'EOF'
-           # Pull the latest app image
-           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
+          # Pull the latest app image
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
 
-           # Stop and remove the existing container if it exists
-           docker stop todo-flask-app || true
-           docker rm todo-flask-app || true
-           docker stop postgres || true
-           docker rm postgres || true
+          # Stop and remove the existing container if it exists
+          docker stop todo-flask-app || true
+          docker rm todo-flask-app || true
+          docker stop postgres || true
+          docker rm postgres || true
 
-           # Run Postgres container
-           docker run -d --name postgres \
-             -e POSTGRES_USER=postgres \
-             -e POSTGRES_PASSWORD=password \
-             -e POSTGRES_DB=todoapp \
-             -p 5432:5432 \
-             postgres:14
+          # Run Postgres container
+          docker run -d --name postgres \
+            -e POSTGRES_USER=postgres \
+            -e POSTGRES_PASSWORD=password \
+            -e POSTGRES_DB=todoapp \
+            -p 5432:5432 \
+            postgres:14
 
-            # Wait for Postgres to be ready
-            echo "Waiting for Postgres to be ready..."
-            sleep 10
+          # Wait for Postgres to be ready
+          echo "Waiting for Postgres to be ready..."
+          sleep 10
 
-           # Run Todo Flask app container
-           docker run -d --name todo-flask-app -p 80:5000 \
-             -e DB_HOST=localhost \
-             -e DB_NAME=todoapp \
-             -e DB_USER=postgres \
-             -e DB_PASSWORD=password \
-             ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
-            EOF
+          # Run Todo Flask app container
+          docker run -d --name todo-flask-app -p 80:5000 \
+            -e DB_HOST=localhost \
+            -e DB_NAME=todoapp \
+            -e DB_USER=postgres \
+            -e DB_PASSWORD=password \
+            ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
+          EOF
 
       - name: Clean up SSH key
         run: rm -f staging_key.pem
