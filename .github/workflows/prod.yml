@@ -1,0 +1,58 @@
+name: Deploy to Production
+
+on:
+    workflow_dispatch: # Manual trigger
+
+jobs:
+  deploy-production:
+    name: Deploy to Production Environment
+    runs-on: ubuntu-latest
+    environment: production # Triggers manual approval 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Decode SSH key
+        run: |
+          echo "${{ secrets.PRODUCTION_SSH_KEY }}" | base64 --decode > production_key.pem
+          chmod 600 production_key.pem
+
+      - name: Deploy Docker container to Production
+        run: |
+          ssh -o StrictHostKeyChecking=no -i production_key.pem ${{ secrets.PRODUCTION_SSH_USER }}@${{ secrets.PRODUCTION_SERVER }} bash -s <<'EOF'
+          set -e
+
+          # Pull latest app image
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
+
+          # Create network if not exists
+          docker network create todo-net || true
+
+          # Stop and remove existing containers if any
+          docker stop todo-flask-app || true && docker rm todo-flask-app || true
+          docker stop postgres || true && docker rm postgres || true
+
+          # Run Postgres container
+          docker run -d --name postgres --network todo-net \
+            -e POSTGRES_USER=postgres \
+            -e POSTGRES_PASSWORD=password \
+            -e POSTGRES_DB=todoapp \
+            -p 5432:5432 \
+            postgres:14
+
+          echo "Waiting for Postgres to start..."
+          sleep 10
+
+          # Run Flask app container
+          docker run -d --name todo-flask-app --network todo-net -p 80:5000 \
+            -e DB_HOST=${{secrets.RDS_HOST}} \
+            -e DB_NAME=${{secrets.RDS_NAME}} \
+            -e DB_USER=${{secrets.RDS_USER}} \
+            -e DB_PASSWORD=${{secrets.RDS_PASSWORD}} \
+            ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
+          EOF
+
+      - name: Clean up SSH key
+        run: rm -f production_key.pem
+    
