@@ -13,12 +13,12 @@ $ git clone https://github.com/koushik2316/Octa-Byte_Assement
 $ cd  Octa-Byte_Assement
 ```
 ### To Run Locally with Docker Compose 
-### 1️⃣ Start the App
+### Start the App
 ```bash
 $ docker-compose up --build
 ```
 
-### 2️⃣ Access the App
+### Access the App
 ``` bash
   Access the app at: http://localhost:5000
 ```
