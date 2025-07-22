@@ -121,12 +121,25 @@ Two meaningful dashboards are configured:
  2. PostgreSQL Metrics
      * Query count, connections, cache hit ratio, query duration
 
+---
+## ❗ Challenges & Resolutions
+
+| Challenge                                  | Resolution                                                                  |
+| ------------------------------------------ | --------------------------------------------------------------------------- |
+| Promtail bind mount error                  | Removed Loki + Promtail due to directory mapping issues                     |
+| Trivy vulnerabilities in Docker base image | Switched to `python:3.10-slim` and pinned dependencies                      |
+| Prometheus not scraping RDS                | Opened SG on port `9187` and validated exporter on EC2                      |
+| SSH deployment automation                  | Used GitHub Secrets to store EC2 private key and deployed using `scp + ssh` |
+| Manual production deployment step          | Used `workflow_dispatch` + `environments.production` with approval gate     |
+
+---
+
 ## Dashboard Screenshots
 
   ![Image](Screenshots/Dashboards.png)
 
   ![Image](Screenshots/EC2_System.png)
-  
+
   ![Image](Screenshots/PostgreSQL.png)
 
 
