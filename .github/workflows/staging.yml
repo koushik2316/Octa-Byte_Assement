@@ -19,7 +19,8 @@ jobs:
 
       - name: Deploy Docker container to Staging
         run: |
-          ssh -o StrictHostKeyChecking=no -i staging_key.pem ${{ secrets.STAGING_SSH_USER }}@${{ secrets.STAGING_SERVER }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i staging_key.pem ${{ secrets.STAGING_SSH_USER }}@${{ secrets.STAGING_SERVER }} 
+          << 'EOF'
            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
            docker stop todo-flask-app || true
            docker rm todo-flask-app || true
@@ -29,7 +30,7 @@ jobs:
              -e DB_USER=postgres \
              -e DB_PASSWORD=your-db-password \
              ${{ secrets.DOCKERHUB_USERNAME }}/todo-flask-app:latest
-          EOF
+            EOF
 
       - name: Clean up SSH key
         run: rm -f staging_key.pem
