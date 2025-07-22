@@ -1,5 +1,5 @@
 __pycache__/
-.terraform.lock.hcl
-terraform/.terraform/
+Infra/.terraform.lock.hcl
+Infra/.terraform/
 .env
-terraform/terraform.tfvars
+Infra/terraform.tfvars
