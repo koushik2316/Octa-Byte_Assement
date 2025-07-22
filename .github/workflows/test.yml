@@ -48,6 +48,6 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
-      - name: Run unit & integration tests
+      - name: Run unit & Integration tests
         run: pytest
 
