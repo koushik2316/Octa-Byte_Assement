@@ -9,8 +9,8 @@ This is a simple **Flask** web application for managing TODO tasks, backed by a 
 ### Clone the Repo
 ```bash
 # clone the repo into your local host
-$ git clone https://github.com/koushik2316/Octa-Byte_Assement
-$ cd  Octa-Byte_Assement
+$ git clone https://github.com/koushik2316/todo-microservice-flask
+$ cd  todo-microservice-flask
 ```
 ### To Run Locally with Docker Compose 
 ### 1️⃣ Start the App
@@ -150,3 +150,4 @@ Two meaningful dashboards are configured:
 <br>
 
 ![Image](Screenshots/img.png)
+
